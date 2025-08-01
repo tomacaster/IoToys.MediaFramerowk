@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "VideoPlayer/CMakeFiles/VideoPlayer.dir/VideoPlayer.cpp.o",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

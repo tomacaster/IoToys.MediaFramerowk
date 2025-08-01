@@ -1,0 +1,16 @@
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/CMakeFiles/IoToysMultimediaFramework.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/CMakeFiles/edit_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/CMakeFiles/rebuild_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/common/CMakeFiles/edit_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/common/CMakeFiles/rebuild_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/common/enums/CMakeFiles/edit_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/common/enums/CMakeFiles/rebuild_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoElement/CMakeFiles/VideoElement.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoElement/CMakeFiles/edit_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoElement/CMakeFiles/rebuild_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoPlayer/CMakeFiles/VideoPlayer.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoPlayer/CMakeFiles/edit_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoPlayer/CMakeFiles/rebuild_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoPlayer/Adapters/CMakeFiles/Adapters.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoPlayer/Adapters/CMakeFiles/edit_cache.dir
+/home/michal/Documents/Projekty/IoToys.MediaFramerowk/build/VideoPlayer/Adapters/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "VideoPlayer/Adapters/CMakeFiles/Adapters.dir/GstAdapterContext.cpp.o",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}
