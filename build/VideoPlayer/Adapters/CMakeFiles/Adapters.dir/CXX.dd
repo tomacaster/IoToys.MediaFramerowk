@@ -1,3 +1,0 @@
-ninja_dyndep_version = 1.0
-build VideoPlayer/Adapters/CMakeFiles/Adapters.dir/GstAdapter.cpp.o: dyndep
-
