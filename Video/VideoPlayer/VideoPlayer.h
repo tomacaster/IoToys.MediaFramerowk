@@ -1,10 +1,10 @@
 #pragma once
 #include <memory>
 
-#include "../common/MediaControler.h"
-#include "../common/enums/MediaState.h"
-#include "../common/adapters/VideoAdapters.h"
-#include "../common/adapters/IVideoAdapter.h"
+#include "../../common/MediaControler.h"
+#include "../../common/enums/MediaState.h"
+#include "../../common/adapters/VideoAdapters.h"
+#include "../../common/adapters/IVideoAdapter.h"
 
 namespace Media {
 

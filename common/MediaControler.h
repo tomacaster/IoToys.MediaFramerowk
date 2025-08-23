@@ -14,7 +14,7 @@ namespace Media::Common {
         virtual void seek(double position) = 0;
         virtual double getCurrentPosition() const = 0;
         virtual double getDuration() const = 0;
-        virtual uint getIndex() const { return 0; } // Default implementation, can be overridden;
+        virtual unsigned int getIndex() const { return 0; } // Default implementation, can be overridden;
     protected:
         // Protected members can be added here if needed
     };

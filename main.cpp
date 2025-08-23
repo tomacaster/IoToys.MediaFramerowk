@@ -1,5 +1,8 @@
-#include "VideoElement/VideoElement.h"
-#include "VideoPlayer/VideoPlayer.h"
+
+#include "components/mptf_core/common/include/Logger.h"
+
+#include "Video/VideoElement/VideoElement.h"
+#include "Video/VideoPlayer/VideoPlayer.h"
 // #include "VideoPlayer/Adapter/GstAdapter.h"
 // #include "VideoPlayer/Adapter/IVideoAdapter.h"
 // #include <gst/gst.h>
@@ -8,7 +11,9 @@
 int main(int argc, char *argv[]) {
     Media::VideoElement videoElement("https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm");
     Media::VideoPlayer videoPlayer;
-
+    Logger::InitLogger("");
+        auto logger = Logger::GetClassLogger("Main");
+    logger->info("Starting video playback...");
     videoPlayer.loadMedia(videoElement, Media::Common::Adapters::AdapterType::GstAdapter);
     videoPlayer.play();
     // gst_init(&argc, &argv);

@@ -3,8 +3,8 @@
 #include <optional>
 #include <string_view>
 
-#include "MediaControler.h"
-#include "../VideoElement/VideoElement.h"
+#include "../MediaControler.h"
+#include "../../Video/VideoElement/VideoElement.h"
 
 namespace Media::Adapters {
     using VideoElement = Media::VideoElement;

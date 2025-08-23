@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../common/MediaElement.h"
-#include "../common/enums/MediaType.h"
-#include "../common/MediaDescription.h"
+#include "../../common/MediaElement.h"
+#include "../../common/enums/MediaType.h"
+#include "../../common/MediaDescription.h"
 
 namespace Media {
     using MediaElement = Media::Common::MediaElement;
