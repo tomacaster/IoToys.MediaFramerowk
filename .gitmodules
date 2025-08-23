@@ -1,0 +1,3 @@
+[submodule "components/mptf_core"]
+	path = components/mptf_core
+	url = https://github.com/tomacaster/mptf_core.git
