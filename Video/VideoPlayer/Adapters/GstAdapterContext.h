@@ -13,9 +13,7 @@ namespace Media::Adapters {
         public:
             Wrappers::GstElementPtr pipeline;
             Wrappers::GstElementPtr source;
-            Wrappers::GstElementPtr convert;
-            Wrappers::GstElementPtr resample;
-            Wrappers::GstElementPtr sink;
+            Wrappers::GstElementPtr audioConvert, audioResample, audioSink;
+            Wrappers::GstElementPtr videoConvert, videoScale, videoSink;
     };
-
 } // namespace Media::Adapters

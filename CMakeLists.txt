@@ -21,7 +21,6 @@ add_subdirectory(Video/VideoPlayer/Adapters)     # Add this if it exists
 
 add_executable(IoToysMultimediaFramework
     main.cpp
-
 )
 
 target_compile_options(IoToysMultimediaFramework PRIVATE

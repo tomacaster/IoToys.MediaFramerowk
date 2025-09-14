@@ -7,44 +7,26 @@
 namespace Media::Adapters {
 
     void GstAdapter::padAddedHandler (GstElement *src, GstPad *new_pad, const GstAdapterContext &data) {
-        GstPad *sink_pad = gst_element_get_static_pad (data.convert.get(), "sink");
-        GstPadLinkReturn ret;
-        GstCaps *new_pad_caps = NULL;
-        GstStructure *new_pad_struct = NULL;
-        const gchar *new_pad_type = NULL;
+    GstCaps *caps = gst_pad_get_current_caps(new_pad);
+    GstStructure *str = gst_caps_get_structure(caps, 0);
+    const gchar *name = gst_structure_get_name(str);
 
-        g_print ("Received new pad '%s' from '%s':\n", GST_PAD_NAME (new_pad), GST_ELEMENT_NAME (src));
+    GstPad *target_pad = nullptr;
+    if (g_str_has_prefix(name, "audio/")) {
+        target_pad = gst_element_get_static_pad(data.audioConvert.get(), "sink");
+    } else if (g_str_has_prefix(name, "video/")) {
+        target_pad = gst_element_get_static_pad(data.videoConvert.get(), "sink");
+    }
 
-        /* If our converter is already linked, we have nothing to do here */
-        if (gst_pad_is_linked (sink_pad)) {
-        g_print ("We are already linked. Ignoring.\n");
-        goto exit;
+    if (target_pad) {
+        if (!gst_pad_is_linked(target_pad)) {
+            if (gst_pad_link(new_pad, target_pad) != GST_PAD_LINK_OK) {
+                g_printerr("Pad link failed for %s\n", name);
+            }
         }
-
-        /* Check the new pad's type */
-        new_pad_caps = gst_pad_get_current_caps (new_pad);
-        new_pad_struct = gst_caps_get_structure (new_pad_caps, 0);
-        new_pad_type = gst_structure_get_name (new_pad_struct);
-        if (!g_str_has_prefix (new_pad_type, "audio/x-raw")) {
-        g_print ("It has type '%s' which is not raw audio. Ignoring.\n", new_pad_type);
-        goto exit;
-        }
-
-        /* Attempt the link */
-        ret = gst_pad_link (new_pad, sink_pad);
-        if (GST_PAD_LINK_FAILED (ret)) {
-        g_print ("Type is '%s' but link failed.\n", new_pad_type);
-        } else {
-        g_print ("Link succeeded (type '%s').\n", new_pad_type);
-        }
-
-        exit:
-        /* Unreference the new pad's caps, if we got them */
-        if (new_pad_caps != NULL)
-        gst_caps_unref (new_pad_caps);
-
-        /* Unreference the sink pad */
-        gst_object_unref (sink_pad);
+        gst_object_unref(target_pad);
+    }
+    gst_caps_unref(caps);
     }
 
     GstAdapter::GstAdapter(int argc, char *argv[])
@@ -67,14 +49,19 @@ namespace Media::Adapters {
     void GstAdapter::init()
     {
         context_.source = Wrappers::GstElementPtr(gst_element_factory_make("uridecodebin", "source"));
-        context_.convert = Wrappers::GstElementPtr(gst_element_factory_make ("audioconvert", "convert"));
-        context_.resample = Wrappers::GstElementPtr(gst_element_factory_make ("audioresample", "resample"));
-        context_.sink = Wrappers::GstElementPtr(gst_element_factory_make ("autoaudiosink", "sink"));
+        context_.audioConvert = Wrappers::GstElementPtr(gst_element_factory_make ("audioconvert", "convert"));
+        context_.audioResample = Wrappers::GstElementPtr(gst_element_factory_make ("audioresample", "resample"));
+        context_.audioSink = Wrappers::GstElementPtr(gst_element_factory_make ("autoaudiosink", "sink"));
+
+        context_.videoConvert = Wrappers::GstElementPtr(gst_element_factory_make("videoconvert", "video_convert"));
+        context_.videoScale = Wrappers::GstElementPtr(gst_element_factory_make("videoscale",   "video_scale"));
+        context_.videoSink = Wrappers::GstElementPtr(gst_element_factory_make("autovideosink","video_sink"));
 
         /* Create the empty pipeline */
-        context_.pipeline = Wrappers::GstElementPtr(gst_pipeline_new ("test-pipeline"));
+        context_.pipeline = Wrappers::GstElementPtr(gst_pipeline_new ("gstPipeline"));
 
-        if (!context_.pipeline || !context_.source || !context_.convert || !context_.resample || !context_.sink) {
+        if (!context_.pipeline || !context_.source || !context_.audioConvert || !context_.audioResample || !context_.audioSink
+            || !context_.videoConvert || !context_.videoScale || !context_.videoSink) {
             g_printerr ("Not all elements could be created.\n");
             
             return;
@@ -82,11 +69,15 @@ namespace Media::Adapters {
 
         /* Build the pipeline. Note that we are NOT linking the source at this
         * point. We will do it later. */
-        gst_bin_add_many (GST_BIN (context_.pipeline.get()), context_.source.get(), context_.convert.get(), context_.resample.get(), context_.sink.get(), NULL);
+        gst_bin_add_many (GST_BIN (context_.pipeline.get()), context_.source.get(), context_.audioConvert.get(), context_.audioResample.get(), context_.audioSink.get(), 
+            context_.videoConvert.get(), context_.videoScale.get(), context_.videoSink.get(), nullptr);
 
-        if (!gst_element_link_many (context_.convert.get(), context_.resample.get(), context_.sink.get(), NULL)) {
+        auto audioErr = gst_element_link_many(context_.audioConvert.get(), context_.audioResample.get(), context_.audioSink.get(), nullptr);
+        auto videoErr = gst_element_link_many(context_.videoConvert.get(), context_.videoScale.get(), context_.videoSink.get(), nullptr);
+
+        if (!audioErr || !videoErr) {
             g_printerr ("Elements could not be linked.\n");
-            gst_object_unref (context_.pipeline.get());
+            context_.pipeline.reset();
 
             return; 
         }
@@ -106,7 +97,8 @@ namespace Media::Adapters {
             return false;
         }
         
-        if (!context_.pipeline || !context_.source || !context_.convert || !context_.resample || !context_.sink) {
+        if (!context_.pipeline || !context_.source || !context_.audioConvert || !context_.audioResample || !context_.audioSink
+            || !context_.videoConvert || !context_.videoScale || !context_.videoSink) {
             g_printerr("Pipeline or elements are not created.\n");
             return false;
         }
@@ -139,15 +131,14 @@ namespace Media::Adapters {
 
         if (ret == GST_STATE_CHANGE_FAILURE) {
             g_printerr ("Unable to set the pipeline to the playing state.\n");
-            gst_object_unref (context_.pipeline.get());
+            context_.pipeline.reset();
+
             return;
         }
 
         std::jthread message_thread(&GstAdapter::handleMessageThread, this, stop_token_, &context_);
 
     }
-
-
 
     void GstAdapter::pause() { /* przykładowo: gst_element_set_state(pipeline, GST_STATE_PAUSED); */ }
     void GstAdapter::stop() { /* przykładowo: gst_element_set_state(pipeline, GST_STATE_NULL); */ }
@@ -199,13 +190,15 @@ namespace Media::Adapters {
                     break;
             }
 
-            gst_message_unref (message_.get());
+            if (message_) {
+                message_.reset();
             }
+        }
         } while (!terminate || !stop_token.stop_requested());
 
         /* Free resources */
-        gst_object_unref (bus_.get());
+        bus_.reset();
         gst_element_set_state (context_.pipeline.get(), GST_STATE_NULL);
-        gst_object_unref (context_.pipeline.get());
+        context_.pipeline.reset();
     }
 }

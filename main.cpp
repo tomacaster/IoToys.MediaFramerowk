@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     Media::VideoElement videoElement("https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm");
     Media::VideoPlayer videoPlayer;
     Logger::InitLogger("");
-        auto logger = Logger::GetClassLogger("Main");
+    auto logger = Logger::GetClassLogger("Main");
     logger->info("Starting video playback...");
     videoPlayer.loadMedia(videoElement, Media::Common::Adapters::AdapterType::GstAdapter);
     videoPlayer.play();
