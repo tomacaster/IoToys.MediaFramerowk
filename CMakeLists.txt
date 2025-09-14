@@ -19,26 +19,26 @@ add_subdirectory(Video/VideoElement)
 add_subdirectory(Video/VideoPlayer)  # Add this if it exists
 add_subdirectory(Video/VideoPlayer/Adapters)     # Add this if it exists
 
-add_executable(IoToysMultimediaFramework
-    main.cpp
-)
+# add_executable(IoToysMultimediaFramework
+#     main.cpp
+# )
 
-target_compile_options(IoToysMultimediaFramework PRIVATE
-    -fmodules-ts
-    ${GSTREAMER_CFLAGS_OTHER}
-    ${GSTREAMER_BASE_CFLAGS_OTHER}
-)
+# target_compile_options(IoToysMultimediaFramework PRIVATE
+#     -fmodules-ts
+#     ${GSTREAMER_CFLAGS_OTHER}
+#     ${GSTREAMER_BASE_CFLAGS_OTHER}
+# )
 
-target_link_libraries(IoToysMultimediaFramework PRIVATE
-    VideoElement
-    VideoPlayer
-    Adapters
-    mptf_core
-    ${GSTREAMER_LIBRARIES}
-    ${GSTREAMER_BASE_LIBRARIES}
-)
+# target_link_libraries(IoToysMultimediaFramework PRIVATE
+#     VideoElement
+#     VideoPlayer
+#     Adapters
+#     mptf_core
+#     ${GSTREAMER_LIBRARIES}
+#     ${GSTREAMER_BASE_LIBRARIES}
+# )
 
-target_link_options(IoToysMultimediaFramework PRIVATE
-    ${GSTREAMER_LDFLAGS_OTHER}
-    ${GSTREAMER_BASE_LDFLAGS_OTHER}
-)
+# target_link_options(IoToysMultimediaFramework PRIVATE
+#     ${GSTREAMER_LDFLAGS_OTHER}
+#     ${GSTREAMER_BASE_LDFLAGS_OTHER}
+# )
