@@ -114,8 +114,8 @@
 -DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
 -DCMAKE_PROJECT_INCLUDE_BEFORE:FILEPATH=%{BuildConfig:BuildDirectory:NativeFilePath}/.qtc/package-manager/auto-setup.cmake
 -DCMAKE_CXX_FLAGS_INIT:STRING=%{Qt:QML_DEBUG_FLAG}</value>
-    <value type="QString" key="CMake.Source.Directory">/mnt/data/Projekty/IoToys/IoToys.MediaFramerowk</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/mnt/data/Projekty/IoToys/IoToys.MediaFramerowk/build</value>
+    <value type="QString" key="CMake.Source.Directory">/mnt/data/Projekty/IoToys/IoToys.MediaFramework</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/mnt/data/Projekty/IoToys/IoToys.MediaFramework/build</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="QString" key="CMakeProjectManager.MakeStep.BuildPreset"></value>
@@ -223,7 +223,7 @@
      <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
      <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
      <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/mnt/data/Projekty/IoToys/IoToys.MediaFramerowk/build</value>
+     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/mnt/data/Projekty/IoToys/IoToys.MediaFramework/build</value>
     </valuemap>
     <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
    </valuemap>
@@ -292,7 +292,7 @@
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/mnt/data/Projekty/IoToys/IoToys.MediaFramerowk/build</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/mnt/data/Projekty/IoToys/IoToys.MediaFramework/build</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
