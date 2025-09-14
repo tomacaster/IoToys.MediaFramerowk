@@ -3,7 +3,8 @@
 #include <memory>
 #include <thread>
 
-#include "../common/adapters/IVideoAdapter.h"
+#include "../../../common/adapters/IVideoAdapter.h"
+
 #include "GstAdapterContext.h"
 
 #include "GstAdapterTypes.h"
